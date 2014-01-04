@@ -10,13 +10,11 @@ import silvio.vuk.gamedev.tetrisboxes.values.Val;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class PauseScreen implements Screen{
 
 	final GameScreenController gsc;
 	final GameScreen		   gameScreen;
-	OrthographicCamera 		   camera;
 	PauseScreenInputProcessor  pauseScreenInputProcessor;
 	
 	private final String selectedOption = "*";
@@ -27,28 +25,12 @@ public class PauseScreen implements Screen{
 		this.gsc = gsc;
 		pauseMenuItems = new PauseMenuItems();
 		this.pauseScreenInputProcessor = new PauseScreenInputProcessor(pauseMenuItems.getMapSize()); 
-		Gdx.input.setInputProcessor(pauseScreenInputProcessor);
 		this.gameScreen = gameScreen;
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, Val.SCREEN_WIDTH, Val.SCREEN_HEIGHT);
-		
-		gameScreen.PauseBackgroundMusic();
 	}
 	
 	@Override
 	public void render(float delta) {
-		
 		gameScreen.render(delta);
-		
-//		Gdx.gl.glClearColor(0, 0, 0, 0.51f);
-//		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
-		// tell the camera to update its matrices.
-		camera.update();
-
-		// tell the SpriteBatch to render in the
-		// coordinate system specified by the camera.
-		gsc.getBatch().setProjectionMatrix(camera.combined);
 		
 		int optionSelected = pauseScreenInputProcessor.getOptionSelected();
 		
@@ -56,14 +38,12 @@ public class PauseScreen implements Screen{
 		{	
 			switch(optionSelected)
 			{
-				case PauseMenuItems.BACK_TO_GAME_ID: 
-					this.dispose();
+				case PauseMenuItems.BACK_TO_GAME_ID:
 					gsc.setScreen(gameScreen);
 					break;
 				case PauseMenuItems.QUIT_TO_TITLE_ID:
-					this.dispose();
-					gameScreen.dispose();
-					gsc.setScreen(new MainMenuScreen(gsc));
+					gameScreen.resetGame();
+					gsc.setScreen(gsc.getMainMenuScreen());
 					break;
 			}
 		}
@@ -94,7 +74,6 @@ public class PauseScreen implements Screen{
 		}
 		
 		gsc.getBatch().end();
-		
 	}
 
 	@Override
@@ -105,8 +84,8 @@ public class PauseScreen implements Screen{
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-
+		pauseScreenInputProcessor.resetStates();
+		Gdx.input.setInputProcessor(pauseScreenInputProcessor);
 	}
 
 	@Override
@@ -130,7 +109,6 @@ public class PauseScreen implements Screen{
 	@Override
 	public void dispose() {
 		pauseScreenInputProcessor.getMenuSwitchSound().dispose();
-		gameScreen.StartBackgroundMusic();
 	}
 
 }

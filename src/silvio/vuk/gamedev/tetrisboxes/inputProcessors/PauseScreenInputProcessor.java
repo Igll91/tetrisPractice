@@ -17,11 +17,16 @@ public class PauseScreenInputProcessor implements InputProcessor {
 	
 	public PauseScreenInputProcessor(int numberOfOptions)
 	{
-		this.lastKey = -1;
-		this.optionSelected = 0;
-		isEnterPressed = false;
+		resetStates();
 		this.numberOfOptions = numberOfOptions;
 		menuSwitchSound = Gdx.audio.newSound(Gdx.files.internal(menuSwitchSoundLocation));
+	}
+	
+	public void resetStates()
+	{
+		lastKey = -1;
+		optionSelected = 0;
+		isEnterPressed = false;
 	}
 	
 	@Override
@@ -49,9 +54,6 @@ public class PauseScreenInputProcessor implements InputProcessor {
 		else
 			lastKey = -1;
 		
-//		System.out.println("Key Down: lastKey = " +lastKey);
-//		System.out.println("optionSelected = " +optionSelected);
-		
 		return true;
 	}
 
@@ -59,7 +61,7 @@ public class PauseScreenInputProcessor implements InputProcessor {
 	public boolean keyUp(int keycode) {
 		lastKey = -1;
 		isEnterPressed = false;
-		System.out.println("Key up: lastKey = " +lastKey);
+//		System.out.println("Key up: lastKey = " +lastKey);
 		return true;
 	}
 

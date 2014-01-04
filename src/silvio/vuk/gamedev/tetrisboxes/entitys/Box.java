@@ -1,5 +1,13 @@
 package silvio.vuk.gamedev.tetrisboxes.entitys;
 
+/**
+ * Represents a box which are used to form a well known tetris shapes.
+ *
+ * Each box contains x and y coordinates. 
+ * 
+ * @author Silvio Vuk
+ *
+ */
 public class Box {
 
 	private int x;
@@ -33,4 +41,9 @@ public class Box {
 		this.y = y;
 	}
 	
+	public void setXY(int x, int y)
+	{
+		this.x = x;
+		this.y = y;
+	}
 }
