@@ -31,10 +31,10 @@ public class GameOverScreen implements Screen {
 		
 		gsc.getFontPrisma().setColor(180, 10, 10, 0.85f);
 		TextBounds textSize = gsc.getFontPrisma().getBounds(GAME_OVER_TEXT);
-		gsc.getFontBlockStepped().draw(gsc.getBatch(), GAME_OVER_TEXT, Val.SCREEN_WIDTH / 2 - textSize.width / 2, Val.SCREEN_HEIGHT / 2 - textSize.height / 2 );
+		gsc.getFontBlockStepped().draw(gsc.getBatch(), GAME_OVER_TEXT, Val.SCREEN_WIDTH_TARGET / 2 - textSize.width / 2, Val.SCREEN_HEIGHT_TARGET / 2 - textSize.height / 2 );
 
 		textSize = gsc.getFontPrisma().getBounds(EXIT_MESSAGE);
-		gsc.getFontBlockStepped().draw(gsc.getBatch(), EXIT_MESSAGE, Val.SCREEN_WIDTH / 2 - textSize.width / 2, Val.SCREEN_HEIGHT / 2 - textSize.height / 2 - 30);
+		gsc.getFontBlockStepped().draw(gsc.getBatch(), EXIT_MESSAGE, Val.SCREEN_WIDTH_TARGET / 2 - textSize.width / 2, Val.SCREEN_HEIGHT_TARGET / 2 - textSize.height / 2 - 30);
 
 		gsc.getBatch().end();
 		

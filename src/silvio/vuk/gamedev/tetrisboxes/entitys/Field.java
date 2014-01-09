@@ -39,7 +39,7 @@ public class Field {
 		
 		for(Box box: arrayOfBoxes)
 		{
-			setOfIntegers.add(box.getY() / Val.BOX_DIMENSION);
+			setOfIntegers.add(box.y / Val.BOX_DIMENSION);
 		}
 		
 		int numberOfRowsToBeDestroyed = 0;
@@ -79,7 +79,7 @@ public class Field {
 	public void insertBox(final Box box)
 	{
 		// id of the cell box is currently at
-		final int posX = box.getX() / Val.BOX_DIMENSION; 
+		final int posX = box.x / Val.BOX_DIMENSION; 
 		
 		mapsOfBoxes.get(posX).push(box);
 		
@@ -94,8 +94,8 @@ public class Field {
 		while(iterator.hasNext())
 		{
 			Box currentBox = iterator.next();
-			int posX = currentBox.getX() / Val.BOX_DIMENSION;
-			int posY = currentBox.getY() / Val.BOX_DIMENSION;
+			int posX = currentBox.x / Val.BOX_DIMENSION;
+			int posY = currentBox.y / Val.BOX_DIMENSION;
 
 			if(mapsOfBoxes.get(posX).empty())
 			{
@@ -108,7 +108,7 @@ public class Field {
 			else
 			{
 				Box currentBoxsCellNearestBox = mapsOfBoxes.get(posX).peek();
-				int nearestBoxPosy = currentBoxsCellNearestBox.getY() / Val.BOX_DIMENSION;
+				int nearestBoxPosy = currentBoxsCellNearestBox.y / Val.BOX_DIMENSION;
 
 				if(posY == (nearestBoxPosy + 1))
 				{
@@ -138,7 +138,7 @@ public class Field {
 			else
 			{
 				Box box = mapsOfBoxes.get(counter).peek();
-				int posY = box.getY() / Val.BOX_DIMENSION;
+				int posY = box.y / Val.BOX_DIMENSION;
 				if(posY >= NUMBER_OF_ROWS)
 					return true;
 			}

@@ -15,8 +15,8 @@ public final class Val {
 	// resizanje ne valja... kasnije to srediti 
 	
 	public static String GAME_TITLE = "Tetris boxes";
-	public static int  SCREEN_WIDTH = 400;
-	public static int SCREEN_HEIGHT = 840;
-	
-	public static final int BOX_DIMENSION = 32;
+	public static int  SCREEN_WIDTH_TARGET 	= 400;
+	public static int SCREEN_HEIGHT_TARGET	= 840;
+	public static float ASPECT_RATIO_TARGET = (float)SCREEN_WIDTH_TARGET / (float)SCREEN_HEIGHT_TARGET;
+	public static final int BOX_DIMENSION 	= 32;
 }

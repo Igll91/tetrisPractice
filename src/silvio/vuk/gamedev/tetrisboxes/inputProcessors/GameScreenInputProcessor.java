@@ -69,8 +69,8 @@ public class GameScreenInputProcessor implements InputProcessor {
 					{
 						for(Box box: currentlyUsedShape.getArrayOfBoxes())
 						{
-							int currentBoxX = box.getX() / Val.BOX_DIMENSION;
-							int currentBoxY = box.getY() / Val.BOX_DIMENSION;
+							int currentBoxX = box.x / Val.BOX_DIMENSION;
+							int currentBoxY = box.y / Val.BOX_DIMENSION;
 
 							if(currentBoxX == 0 || currentBoxY  >= FieldVol2.NUMBER_OF_ROWS)
 								return false;
@@ -88,8 +88,8 @@ public class GameScreenInputProcessor implements InputProcessor {
 					{
 						for(Box box: currentlyUsedShape.getArrayOfBoxes())
 						{
-							int currentBoxX = box.getX() / Val.BOX_DIMENSION;
-							int currentBoxY = box.getY() / Val.BOX_DIMENSION;
+							int currentBoxX = box.x / Val.BOX_DIMENSION;
+							int currentBoxY = box.y / Val.BOX_DIMENSION;
 
 							if(currentBoxX == FieldVol2.NUMBER_OF_CELLS - 1 || currentBoxY  >= FieldVol2.NUMBER_OF_ROWS)
 								return false;
@@ -129,13 +129,11 @@ public class GameScreenInputProcessor implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

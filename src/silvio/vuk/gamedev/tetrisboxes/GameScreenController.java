@@ -47,7 +47,7 @@ public class GameScreenController extends Game {
 		
 		generator.dispose();
 		
-		fontPrisma.setColor(Color.WHITE);
+		fontPrisma.setColor(Color.RED);
 		fontBlockStepped.setColor(Color.WHITE);
 		
 		batch = new SpriteBatch();

@@ -31,10 +31,10 @@ public class MainMenuScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		float middleOfScreenFontPrisma = Val.SCREEN_WIDTH / 2f  - gsc.getFontPrisma().getBounds(entryMessage).width / 2f;
+		float middleOfScreenFontPrisma = Val.SCREEN_WIDTH_TARGET / 2f  - gsc.getFontPrisma().getBounds(entryMessage).width / 2f;
 		
 		gsc.getBatch().begin();
-		gsc.getBatch().draw(backgroundImage, 0, 0, Val.SCREEN_WIDTH, Val.SCREEN_HEIGHT);
+		gsc.getBatch().draw(backgroundImage, 0, 0, Val.SCREEN_WIDTH_TARGET, Val.SCREEN_HEIGHT_TARGET);
 		gsc.getFontPrisma().draw(gsc.getBatch(), entryMessage, middleOfScreenFontPrisma, 200);
 		gsc.getBatch().end();
 	}

@@ -3,6 +3,7 @@ package silvio.vuk.gamedev.tetrisboxes.entitys.shapes;
 import javax.management.InvalidAttributeValueException;
 
 import silvio.vuk.gamedev.tetrisboxes.entitys.Box;
+import silvio.vuk.gamedev.tetrisboxes.entitys.FieldVol2;
 import silvio.vuk.gamedev.tetrisboxes.values.ShapeID;
 import silvio.vuk.gamedev.tetrisboxes.values.Val;
 
@@ -49,10 +50,7 @@ public abstract class Shape {
 		mapOfRotationStates = new OrderedMap<>(NUMBER_OF_ROTATION_STEPS);
 		
 		createRotationShapes();
-		// kasnije staviti na polovicu game screena, a ne screena od cijelog appa
-//		setupBlocks(Val.SCREEN_WIDTH/2 - Val.BOX_DIMENSION/2, Val.SCREEN_HEIGHT + Val.BOX_DIMENSION);
-		setupBlocks(100, Val.SCREEN_HEIGHT + Val.BOX_DIMENSION);
-//		setupBlocks(Val.SCREEN_WIDTH/2 - Val.BOX_DIMENSION/2, 400);
+		setupBlocks(FieldVol2.FIELD_WIDTH / 2 - (numberOfBoxesInRow / 2 * Val.BOX_DIMENSION), FieldVol2.FIELD_HEIGHT + ( 3* Val.BOX_DIMENSION));
 	}
 	
 	public void rotateLeft() throws InvalidAttributeValueException
@@ -88,14 +86,8 @@ public abstract class Shape {
 	{
 		int centerBlockPos[] = getCurrentRotationStateCenterBlockPosition();
 
-		// starting position row = 0, column = 0... all others are calculated on base of this
-		int posZeroZero_X_value = centerBox.getX() - (Val.BOX_DIMENSION * centerBlockPos[0]);
-		int posZeroZero_Y_value = centerBox.getY() + (Val.BOX_DIMENSION * centerBlockPos[1]);
-		
-//		System.out.println("center block position: \nx: " +centerBox.getX() +", y: " +centerBox.getY());
-//		System.out.println("center block row: " + centerBlockPos[0] + ", column: " +centerBlockPos[1]);
-//		System.out.println("zero x: " +posZeroZero_X_value);
-//		System.out.println("zero y: " +posZeroZero_Y_value);
+		int posZeroZero_X_value = centerBox.x - (Val.BOX_DIMENSION * centerBlockPos[1]);
+		int posZeroZero_Y_value = centerBox.y + (Val.BOX_DIMENSION * centerBlockPos[0]);
 		
 		if(rotateDirection == ROTATION_DIRECTION_RIGHT)
 			currentRotationState++;
@@ -120,17 +112,19 @@ public abstract class Shape {
 		{
 			char currentChar = rotationState.charAt(counter);
 
-			int currentBlockX = posZeroX + counter % NUMBER_OF_BOXES_IN_ROW * Val.BOX_DIMENSION;
-			int currentBlockY = posZeroY - counter / NUMBER_OF_BOXES_IN_ROW * Val.BOX_DIMENSION;
-			
+			int currentBlockX = posZeroX + counter / NUMBER_OF_BOXES_IN_ROW * Val.BOX_DIMENSION;
+			int currentBlockY = posZeroY - counter % NUMBER_OF_BOXES_IN_ROW * Val.BOX_DIMENSION;
+
 			switch(currentChar)
 			{
 			case 'B':
-				arrayOfBoxes.get(blockCounter).setXY(currentBlockX, currentBlockY);
+				arrayOfBoxes.get(blockCounter).x = currentBlockX;
+				arrayOfBoxes.get(blockCounter).y = currentBlockY;
 				blockCounter++;
 				break;
 			case 'C':
-				arrayOfBoxes.get(blockCounter).setXY(currentBlockX, currentBlockY);
+				arrayOfBoxes.get(blockCounter).x = currentBlockX;
+				arrayOfBoxes.get(blockCounter).y = currentBlockY;
 				centerBox = arrayOfBoxes.get(blockCounter);
 				blockCounter++;
 				break;
@@ -138,20 +132,14 @@ public abstract class Shape {
 		}
 		
 		rotationRectangleChecker = new Rectangle(posZeroX, posZeroY - NUMBER_OF_BOXES_IN_COLUMN * Val.BOX_DIMENSION + Val.BOX_DIMENSION, NUMBER_OF_BOXES_IN_ROW * Val.BOX_DIMENSION, NUMBER_OF_BOXES_IN_COLUMN * Val.BOX_DIMENSION);
-//		System.out.println("PosZeroX: " + posZeroX + ", Y: " +posZeroY);
-//		System.out.println("Rectangle: " +rotationRectangleChecker.getX()
-//				+ "\t" + +rotationRectangleChecker.getY()
-//				+ "\t" + +rotationRectangleChecker.getWidth()
-//				+ "\t" + +rotationRectangleChecker.getHeight());
-		
 	}
 	
 	/**
-	 * Returns row and column values of current rotation state center block. (in that order!)
+	 * Returns column and row values of current rotation state center block. (in that order!)
 	 * 
 	 * return[2] :
-	 *    value [0] represents row
-	 * 	  value [1] represents column
+	 *    value [0] represents column
+	 * 	  value [1] represents row
 	 * 
 	 * @return centerBlockPosition values of center block row and column
 	 * @throws InvalidAttributeValueException if no center block was found.
@@ -167,11 +155,7 @@ public abstract class Shape {
 
 		centerBlockPosition[0] = pos % NUMBER_OF_BOXES_IN_ROW;
 		centerBlockPosition[1] = pos / NUMBER_OF_BOXES_IN_ROW;
-		
-//		System.out.println("position of C block: " +pos);
-//		System.out.println("center block row   : " + centerBlockPosition[0]);
-//		System.out.println("center block column: " + centerBlockPosition[1]);
-		
+
 		return centerBlockPosition;
 	}
 	
@@ -219,17 +203,6 @@ public abstract class Shape {
 	 * Fill {@link Shape#mapOfRotationStates} with string that represent shapes position in certain rotation state
 	 */
 	protected abstract void createRotationShapes();
-	
-	public void testPrint()
-	{
-		System.out.println("Current Shape state:" + "\n" +
-				"current rotation state " + currentRotationState +"\n" +
-				"shape texture id: " + SHAPE_TEXTURE_ID.name() +"\n" +
-				"number of blocks: " + NUMBER_OF_BLOCKS_IN_SHAPE +"\n" +
-				"number of boxes in column: " + NUMBER_OF_BOXES_IN_COLUMN +"\n" +
-				"number of boxes in row: " + NUMBER_OF_BOXES_IN_ROW +"\n" +
-				"number of rotation steps: " + NUMBER_OF_ROTATION_STEPS);
-	}
 
 	public Rectangle getRotationRectangleChecker() {
 		return rotationRectangleChecker;
@@ -244,14 +217,14 @@ public abstract class Shape {
 		if(toTheRight)
 		{
 			for(Box box: arrayOfBoxes)
-				box.setX(box.getX() + Val.BOX_DIMENSION);
+				box.x += Val.BOX_DIMENSION;
 			
 			rotationRectangleChecker.setX(rotationRectangleChecker.getX() + Val.BOX_DIMENSION);
 		}
 		else
 		{
 			for(Box box: arrayOfBoxes)
-				box.setX(box.getX() - Val.BOX_DIMENSION);
+				box.x -= Val.BOX_DIMENSION;
 			
 			rotationRectangleChecker.setX(rotationRectangleChecker.getX() - Val.BOX_DIMENSION);
 		}
@@ -260,7 +233,7 @@ public abstract class Shape {
 	public void fallingShape()
 	{
 		for(Box box: arrayOfBoxes)
-			box.setY(box.getY() - Val.BOX_DIMENSION);
+			box.y -= Val.BOX_DIMENSION;
 		
 		rotationRectangleChecker.setY(rotationRectangleChecker.getY() - Val.BOX_DIMENSION);
 	}

@@ -20,7 +20,7 @@ public class FieldVol2 {
 	public static final int NUMBER_OF_ROWS   = 20;
 	public static final int FIELD_WIDTH  = NUMBER_OF_CELLS * Val.BOX_DIMENSION;
 	public static final int FIELD_HEIGHT = NUMBER_OF_ROWS  * Val.BOX_DIMENSION;
-	public static final int FIELD_WIDTH_OFFSET = (Val.SCREEN_WIDTH - FIELD_WIDTH) / 2;
+	public static final int FIELD_WIDTH_OFFSET = (Val.SCREEN_WIDTH_TARGET - FIELD_WIDTH) / 2;
 	
 	private Box [][] boxesOnField;
 	
@@ -36,8 +36,8 @@ public class FieldVol2 {
 	 */
 	public void insertBox(final Box box)
 	{
-		final int posX = box.getX() / Val.BOX_DIMENSION; 
-		final int posY = box.getY() / Val.BOX_DIMENSION;
+		final int posX = box.x / Val.BOX_DIMENSION; 
+		final int posY = box.y / Val.BOX_DIMENSION;
 		
 		boxesOnField[posX][posY] = box;
 	}
@@ -71,7 +71,7 @@ public class FieldVol2 {
 		
 		if(box != null)
 		{
-			box.setY(box.getY() - (rows * Val.BOX_DIMENSION));
+			box.y -= (rows * Val.BOX_DIMENSION);
 			boxesOnField[posX][posY - rows] = box;
 			boxesOnField[posX][posY] = null;
 		}
@@ -90,8 +90,8 @@ public class FieldVol2 {
 		while(iterator.hasNext())
 		{
 			Box currentBox = iterator.next();
-			int posX = currentBox.getX() / Val.BOX_DIMENSION;
-			int posY = currentBox.getY() / Val.BOX_DIMENSION;
+			int posX = currentBox.x / Val.BOX_DIMENSION;
+			int posY = currentBox.y / Val.BOX_DIMENSION;
 
 			Box currentBoxsCellNearestBox = getColumnsLastBox(posX, posY);
 			
@@ -105,7 +105,7 @@ public class FieldVol2 {
 			}
 			else
 			{
-				int nearestBoxPosy = currentBoxsCellNearestBox.getY() / Val.BOX_DIMENSION;
+				int nearestBoxPosy = currentBoxsCellNearestBox.y / Val.BOX_DIMENSION;
 				
 				if(posY == (nearestBoxPosy + 1))
 				{
@@ -168,7 +168,7 @@ public class FieldVol2 {
 		Set<Integer> setOfIntegers = new TreeSet<>();
 		
 		for(Box box: arrayOfBoxes)
-			setOfIntegers.add(box.getY() / Val.BOX_DIMENSION);
+			setOfIntegers.add(box.y / Val.BOX_DIMENSION);
 		
 		Iterator<Integer> iterator = setOfIntegers.iterator();
 		
@@ -195,7 +195,7 @@ public class FieldVol2 {
 	public boolean isGameOver(final Array<Box> arrayOfBoxes)
 	{
 		for(Box box: arrayOfBoxes)
-			if(box.getY() / Val.BOX_DIMENSION >= NUMBER_OF_ROWS)
+			if(box.y / Val.BOX_DIMENSION >= NUMBER_OF_ROWS)
 				return true;
 		
 		return false;

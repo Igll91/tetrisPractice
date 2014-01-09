@@ -49,7 +49,7 @@ public class PauseScreen implements Screen{
 		}
 		
 		gsc.getBatch().begin();
-		int startYPosition = Val.SCREEN_HEIGHT - 40;
+		int startYPosition = Val.SCREEN_HEIGHT_TARGET - 40;
 		
 		Iterator<Integer> iteratorOfMenuItems = pauseMenuItems.getKeyValuesIterator();
 		
@@ -63,13 +63,13 @@ public class PauseScreen implements Screen{
 			if(optionSelected == id)
 			{
 				gsc.getFontPrisma().setColor(180, 10, 10, 0.85f);
-				gsc.getFontBlockStepped().draw(gsc.getBatch(), selectedOption, Val.SCREEN_WIDTH / 2 - textSize / 2 - 20, startYPosition);
-				gsc.getFontBlockStepped().draw(gsc.getBatch(), selectedOption, Val.SCREEN_WIDTH / 2 + textSize / 2 + 20, startYPosition);
+				gsc.getFontBlockStepped().draw(gsc.getBatch(), selectedOption, Val.SCREEN_WIDTH_TARGET / 2 - textSize / 2 - 20, startYPosition);
+				gsc.getFontBlockStepped().draw(gsc.getBatch(), selectedOption, Val.SCREEN_WIDTH_TARGET / 2 + textSize / 2 + 20, startYPosition);
 			}
 			else
 				gsc.getFontPrisma().setColor(Color.WHITE);
 			
-			gsc.getFontPrisma().draw(gsc.getBatch(), text, Val.SCREEN_WIDTH / 2 - textSize / 2, startYPosition);
+			gsc.getFontPrisma().draw(gsc.getBatch(), text, Val.SCREEN_WIDTH_TARGET / 2 - textSize / 2, startYPosition);
 			startYPosition -= 100;
 		}
 		

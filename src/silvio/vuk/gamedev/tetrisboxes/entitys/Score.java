@@ -6,7 +6,7 @@ public class Score {
 
 	private int points;
 	private ScorePoints lastCombo;
-	private int lastComboApperanceNumber = 1;
+	public int lastComboApperanceNumber = 0;
 	
 	public Score(){}
 	
@@ -47,7 +47,7 @@ public class Score {
 			if(lastComboApperanceNumber == 3)
 			{
 				points += (combo.getValue() * 2);
-				lastComboApperanceNumber = 0;
+//				lastComboApperanceNumber = 0;
 			}
 		}
 		else
